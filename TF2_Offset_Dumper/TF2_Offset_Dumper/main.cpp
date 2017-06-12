@@ -191,6 +191,7 @@ int main()
 	PrintOffset("dwViewAngles", Offset.dwViewAngles); // Printing the offset for formatting
 
 	cout << endl;
+	
 
 	char yn;
 
