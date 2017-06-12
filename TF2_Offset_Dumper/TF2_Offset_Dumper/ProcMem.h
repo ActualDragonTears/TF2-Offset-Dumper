@@ -7,6 +7,13 @@
 #include <string> //Support For Strings
 #include <sstream> //Supports Data Conversion
 
+enum scandefintions_t
+{
+	none,
+	read,
+	subtract
+};
+
 class ProcMem {
 protected:
 
@@ -22,23 +29,6 @@ public:
 	//MISC FUNCTIONS
 	ProcMem();
 	~ProcMem();
-	int chSizeOfArray(char *chArray); //Return Size Of External Char Array
-	int iSizeOfArray(int *iArray); //Return Size Of External Int Array
-	bool iFind(int *iAry, int iVal); //Return Boolean Value To Find A Value Inside An Int Array
-
-#pragma region TEMPLATE MEMORY FUNCTIONS
-
-									 //REMOVE READ/WRITE PROTECTION
-	template <class cData>
-	void Protection(DWORD dwAddress)
-	{
-		if (!bProt)
-			VirtualProtectEx(hProcess, (LPVOID)dwAddress, sizeof(cData), PAGE_EXECUTE_READWRITE, &dwProtection); //Remove Read/Write Protection By Giving It New Permissions
-		else
-			VirtualProtectEx(hProcess, (LPVOID)dwAddress, sizeof(cData), dwProtection, &dwProtection); //Restore The Old Permissions After You Have Red The dwAddress
-
-		bProt = !bProt;
-	}
 
 	//READ MEMORY 
 	template <class cData>
@@ -74,28 +64,12 @@ public:
 			return Read<cData>(dwAddress + Offset[iSize]); //TRUE - Return Value
 	}
 
-	//WRITE MEMORY
-	template <class cData>
-	void Write(DWORD dwAddress, cData Value)
-	{
-		WriteProcessMemory(hProcess, (LPVOID)dwAddress, &Value, sizeof(cData), NULL);
-	}
-
-	//WRITE MEMORY - Pointer
-	template <class cData>
-	void Write(DWORD dwAddress, char *Offset, cData Value)
-	{
-		Write<cData>(Read<cData>(dwAddress, Offset, false), Value);
-	}
-
 	//MEMORY FUNCTION PROTOTYPES
 	virtual void Process(char* ProcessName); //Return Handle To The Process
-	virtual void Patch(DWORD dwAddress, char *chPatch_Bts, char *chDefault_Bts); //Write Bytes To Specified Address
-	DWORD FindAddress(DWORD mod, DWORD modsize, BYTE * sig, char * mask);
-	virtual void Inject(DWORD dwAddress, char *chInj_Bts, char *chDef_Bts, BOOL Type); //Jump To A Codecave And Write Memory
+	DWORD FindAddress(DWORD mod, DWORD modsize, BYTE * sig, char * mask, scandefintions_t def);
+	DWORD FindAddress(DWORD mod, DWORD modsize, BYTE * sig, char * mask, scandefintions_t def, int extra);
 	virtual bool DataCompare(BYTE * data, BYTE * sign, char * mask);
 	virtual DWORD FindSignature(DWORD base, DWORD size, BYTE* sign, char* mask);
-	virtual DWORD AOB_Scan(DWORD dwAddress, DWORD dwEnd, char *chPattern); //Find A Byte Pattern
 	virtual DWORD Module(LPSTR ModuleName); //Return Module Base Address
 	virtual DWORD ModuleSize(LPSTR ModuleName); //Return Module Base Address
 

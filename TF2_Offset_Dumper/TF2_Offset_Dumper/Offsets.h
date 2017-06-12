@@ -30,8 +30,29 @@ struct Offsets
 	DWORD dwLocalPlayer;
 	DWORD dwEntityList;
 
+	DWORD dwButtonBase;
+	DWORD dwButtonBase_2;
+	DWORD dwDuck;
+	DWORD dwMoveForwards;
+	DWORD dwMoveBackwards;
+
 	DWORD dwJump;
 	DWORD dwAttack;
 	DWORD dwAttack2;
+
+	DWORD dwMoveLeft;
+	DWORD dwMoveRight;
+
+	DWORD dwLeft;
+	DWORD dwRight;
+
+	DWORD dwGetMaxClients;
+	DWORD dwIsInGame;
+	DWORD dwIsConnected;
+
+	DWORD dwGlowObjectManager;
+	DWORD dwWorldToScreen;
+
+	DWORD dwViewAngles;
 
 }Offset;
