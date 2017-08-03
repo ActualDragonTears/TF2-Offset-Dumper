@@ -1,5 +1,6 @@
 #include "Offsets.h"
 #include "ProcMem.h"
+#include "CNetVar.h"
 #include <fstream>
 #include <stdio.h>
 #include <ctype.h>
@@ -191,7 +192,18 @@ int main()
 	PrintOffset("dwViewAngles", Offset.dwViewAngles); // Printing the offset for formatting
 
 	cout << endl;
-	
+
+	//char yn;
+
+	//SetConsoleTextAttribute(hConsole, FOREGROUND_CYAN);
+
+	//cout << "Do you want to dump the netvars to a file [Y] Yes | [N] No : ";
+	//std::cin >> yn;
+
+	//if (yn == 'Y')
+	//	DumpNetVars();
+
+	//cout << endl;
 
 	char yn;
 
