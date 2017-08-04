@@ -212,7 +212,7 @@ int main()
 	cout << "Do you want to save to a file [Y] Yes | [N] No : ";
 	std::cin >> yn;
 
-	if (yn == 'Y')
+	if (yn == 'Y' || yn == 'y')
 		Save();
 
 	cout << "Bye!";
